@@ -5,17 +5,30 @@
  */
 package View;
 
+import DAO.CategoriaDAO;
+import Model.Categoria;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Bruno
  */
 public class CategoriaForm extends javax.swing.JInternalFrame {
 
+    Categoria categoria;
     /**
      * Creates new form categoriaPrototipo
      */
     public CategoriaForm() {
         initComponents();
+        categoria = new Categoria();
+    }
+
+    public CategoriaForm(Categoria categoria) {
+        initComponents();
+        this.categoria = categoria;
+        
+        txtCategoria.setText(categoria.getNome());
     }
 
     /**
@@ -28,12 +41,12 @@ public class CategoriaForm extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         panelCategoria = new javax.swing.JPanel();
-        txtCategoria = new javax.swing.JTextField();
         lblCategoria = new javax.swing.JLabel();
+        txtCategoria = new javax.swing.JTextField();
         btnAdicionarCat = new javax.swing.JButton();
         btnCancelarCat = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         panelCategoria.setBorder(javax.swing.BorderFactory.createTitledBorder("Cadastro de Categoria"));
 
@@ -47,22 +60,32 @@ public class CategoriaForm extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(panelCategoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblCategoria)
-                    .addComponent(txtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addComponent(txtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14))
         );
         panelCategoriaLayout.setVerticalGroup(
             panelCategoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelCategoriaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblCategoria)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         btnAdicionarCat.setText("Adicionar");
+        btnAdicionarCat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdicionarCatActionPerformed(evt);
+            }
+        });
 
         btnCancelarCat.setText("Cancelar");
+        btnCancelarCat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarCatActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -89,11 +112,39 @@ public class CategoriaForm extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdicionarCat)
                     .addComponent(btnCancelarCat))
-                .addContainerGap(123, Short.MAX_VALUE))
+                .addContainerGap(129, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAdicionarCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarCatActionPerformed
+        // TODO add your handling code here:
+        categoria.setNome(txtCategoria.getText());
+        
+        if (txtCategoria.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, " O campo Nome é obrigatório, por favor preencha-o! ", " AVISO ", JOptionPane.WARNING_MESSAGE);
+        } else {
+            try {
+                if (this.categoria.getId() > 0) {
+                    CategoriaDAO.atualizar(categoria);
+                } else {
+                    CategoriaDAO.salvar(categoria);
+                }
+
+                JOptionPane.showMessageDialog(this, "Adicinado com sucesso!");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Falha ao gravar no banco de dados\n" + e.getMessage(),
+                        "Aviso de Falha", JOptionPane.ERROR_MESSAGE);
+            }
+            txtCategoria.setText("");
+        }
+    }//GEN-LAST:event_btnAdicionarCatActionPerformed
+
+    private void btnCancelarCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarCatActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarCatActionPerformed
 
     /**
      * @param args the command line arguments

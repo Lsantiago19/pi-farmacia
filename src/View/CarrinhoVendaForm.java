@@ -6,9 +6,11 @@
 package View;
 
 import Common.DataHelper;
+import DAO.EstoqueDAO;
 import DAO.PedidoDAO;
 import DAO.ProdutoDAO;
 import Model.CarrinhoCompra;
+import Model.Cliente;
 import Model.Produto;
 import Model.ProdutoCarrinho;
 import Validation.campoNumero;
@@ -26,6 +28,7 @@ public class CarrinhoVendaForm extends javax.swing.JInternalFrame {
 
     Produto produtoSelecionado = null;
     CarrinhoCompra carrinhoCompra;
+    Cliente cliente = null;
     /**
      * Creates new form CarrinhoVendaForm
      */
@@ -45,6 +48,9 @@ public class CarrinhoVendaForm extends javax.swing.JInternalFrame {
         txtNomeProduto.setText("");
         jLabel5.setText("");
         txtCPFCliente.setText("");
+        
+        produtoSelecionado = null;
+        cliente = null;
     }
     
     private double getValor() {
@@ -186,15 +192,15 @@ public class CarrinhoVendaForm extends javax.swing.JInternalFrame {
                 .addGap(101, 101, 101)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(62, 62, 62)
+                    .addComponent(lblUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbValorProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblValor))
-                .addGap(18, 18, 18)
+                .addGap(37, 37, 37)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbValorTotalProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbValorTotalProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -203,6 +209,9 @@ public class CarrinhoVendaForm extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -216,16 +225,14 @@ public class CarrinhoVendaForm extends javax.swing.JInternalFrame {
                                 .addComponent(lblProduto)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lbValorTotalProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lbValorProduto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtNomeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(btBuscarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                            .addComponent(txtQuantidade)
+                            .addComponent(lbValorProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lbValorTotalProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(31, 31, 31)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtNomeProduto)
+                            .addComponent(btBuscarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -397,9 +404,10 @@ public class CarrinhoVendaForm extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblCpf)
-                    .addComponent(txtCPFCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btBuscarCPF)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(txtCPFCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btBuscarCPF)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -423,7 +431,7 @@ public class CarrinhoVendaForm extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(txtCPFCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btBuscarCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(btBuscarCPF)))
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(lblCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -488,7 +496,11 @@ public class CarrinhoVendaForm extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtCPFClienteActionPerformed
 
     private void btBuscarCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarCPFActionPerformed
-        // TODO add your handling code here:
+        String cpf = this.txtCPFCliente.getText();
+        cliente = PedidoDAO.retornarCliente(cpf);
+        if (cliente != null) {
+            jLabel5.setText(cliente.getNome());
+        }
     }//GEN-LAST:event_btBuscarCPFActionPerformed
 
     private void btBuscarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarProdutoActionPerformed
@@ -519,6 +531,12 @@ public class CarrinhoVendaForm extends javax.swing.JInternalFrame {
         if (total > 0) {
             int quantidade = Integer.parseInt(txtQuantidade.getText());
             ProdutoCarrinho produto = new ProdutoCarrinho(produtoSelecionado);
+            
+            if (!EstoqueDAO.temEstoque(produto, carrinhoCompra)){
+                JOptionPane.showMessageDialog(null, "Produto sem estoque", " AVISO ", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            
             produto.setQuantidade(quantidade);
             produto.setTotal(quantidade * produtoSelecionado.getPreco());
 
@@ -551,16 +569,21 @@ public class CarrinhoVendaForm extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btExcluirItemActionPerformed
 
     private void btFecharVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFecharVendaActionPerformed
-        if (carrinhoCompra.getProdutos().size() > 0) {
-            boolean salvou = PedidoDAO.salvar(carrinhoCompra);
-            if (salvou) {
-                InitValues();
-                JOptionPane.showMessageDialog(this, "Pedido salvo");
+        if (cliente != null) {
+            if (carrinhoCompra.getProdutos().size() > 0) {
+                carrinhoCompra.setCliente(cliente);
+                boolean salvou = PedidoDAO.salvar(carrinhoCompra);
+                if (salvou) {
+                    InitValues();
+                    JOptionPane.showMessageDialog(this, "Pedido salvo");
+                }else {
+                    JOptionPane.showMessageDialog(null, "Ocorreu um problema ao salvar o pedido", " AVISO ", JOptionPane.WARNING_MESSAGE);
+                }
             }else {
-                JOptionPane.showMessageDialog(null, "Ocorreu um problema ao salvar o pedido", " AVISO ", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Escolha um produto", " AVISO ", JOptionPane.WARNING_MESSAGE);
             }
-        }else {
-            JOptionPane.showMessageDialog(null, "Escolha um produto", " AVISO ", JOptionPane.WARNING_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione um cliente", " AVISO ", JOptionPane.WARNING_MESSAGE);
         }
         
     }//GEN-LAST:event_btFecharVendaActionPerformed

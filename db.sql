@@ -7,12 +7,13 @@ create table produto (
     unidade char(30),
     preco decimal(10,2),
     validade datetime,
-    categoria char(30),
+    categoria int,
     estoque int,
     primary key (id)
 );
 
 select * from produto;
+
 
 create table categoria (
 	id smallint not null auto_increment,
@@ -43,3 +44,37 @@ CREATE TABLE pedido_item (
 );
 
 select * from pedido_item;
+
+CREATE TABLE fornecedor (
+  id smallint not null auto_increment,
+  nome varchar(45),
+  CPF varchar(14),
+  telefone char(20),
+  item varchar(45),
+  valorTotal float,
+  qtd int,
+  dataEntrega date,
+  PRIMARY KEY (id)
+);
+
+select * from fornecedor;
+
+CREATE TABLE Cliente (
+
+ id INT NOT NULL AUTO_INCREMENT ,
+ cpf VARCHAR(255) NOT NULL,
+ nome VARCHAR(255) NOT NULL,
+ endereco VARCHAR(255) NOT NULL,
+ numero VARCHAR(255) NOT NULL,
+ bairro VARCHAR(255) NOT NULL,
+ cidade VARCHAR(255) NOT NULL,
+ idade DATE NOT NULL,
+ telefone VARCHAR(255) NOT NULL,
+ sexo VARCHAR(255) NOT NULL,
+ email VARCHAR(255) NOT NULL,
+ estadoCivil VARCHAR(255) NOT NULL,
+PRIMARY KEY(id)
+);
+
+select * from cliente;
+

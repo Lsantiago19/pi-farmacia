@@ -2,9 +2,11 @@ package View;
 
 
 import View.CarrinhoVendaForm;
-import View.ProdutoForm;
+import View.ConsultarProduto;
 import View.RelatorioVendasForm;
 import View.PainelCliente;
+import View.CategoriaConsultarForm;
+import View.FornecedorForm;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -38,8 +40,10 @@ public class PrincipalForm extends javax.swing.JFrame {
         btnProduto = new javax.swing.JButton();
         btnVenda = new javax.swing.JButton();
         btnRelatorio = new javax.swing.JButton();
-        btnCliente = new javax.swing.JButton();
         btnRelatorio1 = new javax.swing.JButton();
+        btnCliente = new javax.swing.JButton();
+        btnCategoria = new javax.swing.JButton();
+        btnFornecedor = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuCliente = new javax.swing.JMenu();
 
@@ -54,7 +58,7 @@ public class PrincipalForm extends javax.swing.JFrame {
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 690, Short.MAX_VALUE)
+            .addGap(0, 684, Short.MAX_VALUE)
         );
 
         btnProduto.setText("Produto");
@@ -78,6 +82,13 @@ public class PrincipalForm extends javax.swing.JFrame {
             }
         });
 
+        btnRelatorio1.setText("Pedidos");
+        btnRelatorio1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRelatorio1ActionPerformed(evt);
+            }
+        });
+
         btnCliente.setText("Cliente");
         btnCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -85,10 +96,17 @@ public class PrincipalForm extends javax.swing.JFrame {
             }
         });
 
-        btnRelatorio1.setText("Pedidos");
-        btnRelatorio1.addActionListener(new java.awt.event.ActionListener() {
+        btnCategoria.setText("Categoria");
+        btnCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRelatorio1ActionPerformed(evt);
+                btnCategoriaActionPerformed(evt);
+            }
+        });
+
+        btnFornecedor.setText("Fornecedor");
+        btnFornecedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFornecedorActionPerformed(evt);
             }
         });
 
@@ -108,27 +126,34 @@ public class PrincipalForm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jDesktopPane1)
             .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addGap(16, 16, 16)
                 .addComponent(btnProduto)
-                .addGap(18, 18, 18)
-                .addComponent(btnVenda)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnCategoria)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCliente)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnRelatorio)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnVenda)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRelatorio1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnRelatorio)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnFornecedor)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnProduto)
-                    .addComponent(btnVenda)
-                    .addComponent(btnRelatorio)
                     .addComponent(btnCliente)
-                    .addComponent(btnRelatorio1))
+                    .addComponent(btnVenda)
+                    .addComponent(btnRelatorio1)
+                    .addComponent(btnRelatorio)
+                    .addComponent(btnCategoria)
+                    .addComponent(btnFornecedor))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jDesktopPane1)
                 .addContainerGap())
@@ -143,8 +168,9 @@ public class PrincipalForm extends javax.swing.JFrame {
 
     private void btnProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdutoActionPerformed
         // TODO add your handling code here:
-        ProdutoForm produto = new ProdutoForm();        
+        ConsultarProduto produto = new ConsultarProduto();        
         jDesktopPane1.add(produto);
+        produto.desktopPane = jDesktopPane1;
         produto.setVisible(true);
     }//GEN-LAST:event_btnProdutoActionPerformed
 
@@ -171,6 +197,21 @@ public class PrincipalForm extends javax.swing.JFrame {
         jDesktopPane1.add(pedidos);
         pedidos.setVisible(true);
     }//GEN-LAST:event_btnRelatorio1ActionPerformed
+
+    private void btnCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCategoriaActionPerformed
+        // TODO add your handling code here:
+        CategoriaConsultarForm categoria = new CategoriaConsultarForm();        
+        jDesktopPane1.add(categoria);
+        categoria.desktopPane = jDesktopPane1;
+        categoria.setVisible(true);
+    }//GEN-LAST:event_btnCategoriaActionPerformed
+
+    private void btnFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFornecedorActionPerformed
+        // TODO add your handling code here:
+        FornecedorForm fornecedor = new FornecedorForm();        
+        jDesktopPane1.add(fornecedor);
+        fornecedor.setVisible(true);
+    }//GEN-LAST:event_btnFornecedorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -208,7 +249,9 @@ public class PrincipalForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCategoria;
     private javax.swing.JButton btnCliente;
+    private javax.swing.JButton btnFornecedor;
     private javax.swing.JButton btnProduto;
     private javax.swing.JButton btnRelatorio;
     private javax.swing.JButton btnRelatorio1;
